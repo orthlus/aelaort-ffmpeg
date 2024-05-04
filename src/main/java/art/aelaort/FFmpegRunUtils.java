@@ -9,6 +9,10 @@ import java.io.IOException;
 
 // TODO some impl of ProgressListener
 public class FFmpegRunUtils {
+	public static String[] args(String s) {
+		return s.split(" ");
+	}
+
 	public static FFmpegJob run(FFmpegBuilder builder) {
 		return FFmpegFactory.ffmpegExecutor().createJob(builder);
 	}
