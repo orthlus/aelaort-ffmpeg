@@ -15,12 +15,12 @@
     </properties>
 
     <dependencies>
-        <dependency> <!--https://github.com/bytedeco/javacv-->
+        <dependency> <!--https://github.com/bytedeco/javacv -->
             <groupId>org.bytedeco</groupId>
             <artifactId>ffmpeg-platform</artifactId>
             <version>6.1.1-1.5.10</version>
         </dependency>
-        <dependency> <!--https://github.com/bramp/ffmpeg-cli-wrapper-->
+        <dependency> <!--https://github.com/bramp/ffmpeg-cli-wrapper -->
             <groupId>net.bramp.ffmpeg</groupId>
             <artifactId>ffmpeg</artifactId>
             <version>0.8.0</version>
