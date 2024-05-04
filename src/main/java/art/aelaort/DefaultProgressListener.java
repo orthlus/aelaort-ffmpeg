@@ -18,7 +18,7 @@ public class DefaultProgressListener implements ProgressListener {
 	public void progress(Progress progress) {
 		double percentage = progress.out_time_ns / duration_ns;
 		System.out.printf(
-				"[%.0f%%] status:%s frame:%d time:%s ms fps:%.0f speed:%.2fx%n",
+				"\r[%.0f%%] status:%s frame:%d time:%s ms fps:%.0f speed:%.2fx",
 				percentage * 100,
 				progress.status,
 				progress.frame,
