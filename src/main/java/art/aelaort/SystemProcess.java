@@ -2,33 +2,45 @@ package art.aelaort;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 class SystemProcess {
-	public static Response callProcess(String command) {
+	public static Process callProcess(List<String> command) {
 		try {
-			Process p = Runtime.getRuntime().exec(command);
-//			p.waitFor(10, TimeUnit.MINUTES);
+			Process p = new ProcessBuilder(command)
+					.inheritIO()
+					.start();
 
-			StringBuilder stdout = new StringBuilder();
 			try (BufferedReader b = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
 				String line;
 				while ((line = b.readLine()) != null) {
-					stdout.append(line);
+					System.out.println(line);
 				}
 			}
 
-			StringBuilder stderr = new StringBuilder();
 			try (BufferedReader b = new BufferedReader(new InputStreamReader(p.getErrorStream()))) {
 				String line;
 				while ((line = b.readLine()) != null) {
-					stderr.append(line);
+					System.err.println(line);
 				}
 			}
 
-			return new Response(p.exitValue(), stdout.toString(), stderr.toString());
+			return p;
 		} catch (Exception e) {
-			return new Response(1, "thrown exception in java", e.getMessage());
+			throw new RuntimeException(e);
+		}
+	}
+
+	private static Response response(String stdout, String stderr) {
+		return new Response(stdout, stderr);
+	}
+
+	private static Response response(Process process, String stdout, String stderr) {
+		try {
+			int exitValue = process.exitValue();
+			return new Response(exitValue, stdout, stderr);
+		} catch (IllegalThreadStateException e) {
+			return new Response(stdout, stderr);
 		}
 	}
 }

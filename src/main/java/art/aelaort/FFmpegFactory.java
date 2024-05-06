@@ -1,9 +1,7 @@
 package art.aelaort;
 
-import net.bramp.ffmpeg.FFmpeg;
-import net.bramp.ffmpeg.FFmpegExecutor;
+import com.google.common.collect.ImmutableList;
 import net.bramp.ffmpeg.FFprobe;
-import net.bramp.ffmpeg.builder.FFmpegBuilder;
 import org.bytedeco.ffmpeg.ffmpeg;
 import org.bytedeco.ffmpeg.ffprobe;
 import org.bytedeco.javacpp.Loader;
@@ -11,20 +9,8 @@ import org.bytedeco.javacpp.Loader;
 import java.io.IOException;
 
 public class FFmpegFactory {
-	public static FFmpegExecutor ffmpegExecutor() {
-		return new FFmpegExecutor(ffmpeg(), ffprobe());
-	}
-
-	public static FFmpegBuilder ffmpegBuilder() {
-		return ffmpeg().builder();
-	}
-
-	public static FFmpeg ffmpeg() {
-		try {
-			return new FFmpeg(Loader.load(ffmpeg.class));
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+	public static ImmutableList.Builder<String> argsBuilder() {
+		return new ImmutableList.Builder<>();
 	}
 
 	public static FFprobe ffprobe() {
@@ -33,5 +19,9 @@ public class FFmpegFactory {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public static String ffmpegPath() {
+		return Loader.load(ffmpeg.class);
 	}
 }

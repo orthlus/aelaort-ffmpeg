@@ -1,23 +1,36 @@
 package art.aelaort;
 
-import net.bramp.ffmpeg.builder.FFmpegBuilder;
-import net.bramp.ffmpeg.job.FFmpegJob;
+import com.google.common.collect.ImmutableList;
 import net.bramp.ffmpeg.probe.FFmpegProbeResult;
-import net.bramp.ffmpeg.progress.ProgressListener;
+import org.bytedeco.ffmpeg.ffmpeg;
+import org.bytedeco.javacpp.Loader;
 
 import java.io.IOException;
 
+import static art.aelaort.FFmpegFactory.argsBuilder;
+
 public class FFmpegRunUtils {
+	public static String quotes(String s) {
+		return "\"" + s + "\"";
+	}
+
+	public static Process run(ImmutableList.Builder<String> builder) {
+		ImmutableList.Builder<String> command = argsBuilder()
+				.add(ffmpegPath())
+				.addAll(builder.build());
+		return SystemProcess.callProcess(command.build());
+	}
+
+	public static Process run(String command) {
+		return SystemProcess.callProcess(argsBuilder().add(ffmpegPath(), command).build());
+	}
+
+	private static String ffmpegPath() {
+		return Loader.load(ffmpeg.class);
+	}
+
 	public static String[] args(String s) {
 		return s.split(" ");
-	}
-
-	public static FFmpegJob run(FFmpegBuilder builder) {
-		return FFmpegFactory.ffmpegExecutor().createJob(builder);
-	}
-
-	public static FFmpegJob run(FFmpegBuilder builder, ProgressListener listener) {
-		return FFmpegFactory.ffmpegExecutor().createJob(builder, listener);
 	}
 
 	public static FFmpegProbeResult probe(String mediaPath) {
