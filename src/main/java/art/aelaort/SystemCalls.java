@@ -24,7 +24,7 @@ public class SystemCalls {
 			try (BufferedReader b = new BufferedReader(new InputStreamReader(p.getErrorStream()))) {
 				String line;
 				while ((line = b.readLine()) != null) {
-					System.err.println("STDERR: " + line);
+					System.out.println("STDERR: " + line);
 				}
 			}
 
