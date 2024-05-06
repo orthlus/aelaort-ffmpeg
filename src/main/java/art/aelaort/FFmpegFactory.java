@@ -1,17 +1,11 @@
 package art.aelaort;
 
-import com.google.common.collect.ImmutableList;
 import net.bramp.ffmpeg.FFprobe;
-import org.bytedeco.ffmpeg.ffmpeg;
-import org.bytedeco.javacpp.Loader;
+import net.bramp.ffmpeg.probe.FFmpegProbeResult;
 
 import java.io.IOException;
 
 public class FFmpegFactory {
-	public static ImmutableList.Builder<String> argsBuilder() {
-		return new ImmutableList.Builder<>();
-	}
-
 	public static FFprobe ffprobe() {
 		try {
 			return new FFprobe(FFmpegPaths.FFPROBE_PATH);
@@ -20,7 +14,11 @@ public class FFmpegFactory {
 		}
 	}
 
-	public static String ffmpegPath() {
-		return Loader.load(ffmpeg.class);
+	public static FFmpegProbeResult probe(String mediaPath) {
+		try {
+			return ffprobe().probe(mediaPath);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
