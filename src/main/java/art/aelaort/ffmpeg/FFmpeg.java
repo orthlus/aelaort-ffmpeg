@@ -20,10 +20,6 @@ public class FFmpeg {
 	private final List<String> args;
 	private boolean printOnlyError;
 
-	private String quotes(String s) {
-		return "\"" + s + "\"";
-	}
-
 	public Process run() {
 		List<String> finalArgs = new ArrayList<>(args.size() + 10);
 		finalArgs.add(ffmpegPath());
@@ -44,10 +40,10 @@ public class FFmpeg {
 			finalArgs.add(quotes(output));
 		}
 
-		return call(finalArgs);
+		return systemCall(finalArgs);
 	}
 
-	private Process call(List<String> command) {
+	private Process systemCall(List<String> command) {
 		try {
 			Process p = new ProcessBuilder(command)
 					.inheritIO()
@@ -71,5 +67,9 @@ public class FFmpeg {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	private String quotes(String s) {
+		return "\"" + s + "\"";
 	}
 }
