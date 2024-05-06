@@ -5,11 +5,13 @@ import art.aelaort.SystemResponse;
 import art.aelaort.ffprobe.models.FFprobeResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
 
+@Slf4j
 public class FFprobe {
 	private static final ObjectMapper mapper = new ObjectMapper();
 
@@ -29,12 +31,14 @@ public class FFprobe {
 
 	private static FFprobeResult parse(SystemResponse response) {
 		if (!response.stderr().isEmpty()) {
+			log.error("ffprobe parse error. stderr: {}", response.stderr());
 			throw new FFprobeException(response);
 		}
 
 		try {
 			return mapper.readValue(response.stdout(), FFprobeResult.class);
 		} catch (JsonProcessingException e) {
+			log.error("ffprobe json error. json: {}", response.stdout(), e);
 			throw new FFprobeException(response, true);
 		}
 	}

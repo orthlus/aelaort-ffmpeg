@@ -3,7 +3,6 @@ package art.aelaort.ffprobe.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import org.apache.commons.lang3.math.Fraction;
 
 import java.util.Map;
 
@@ -11,11 +10,11 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Stream {
 	public enum CodecType {
-		VIDEO,
-		AUDIO,
-		SUBTITLE,
-		DATA,
-		ATTACHMENT
+		video,
+		audio,
+		subtitle,
+		data,
+		attachment
 	}
 
 	@JsonProperty
@@ -29,7 +28,7 @@ public class Stream {
 	@JsonProperty("codec_type")
 	private CodecType type;
 	@JsonProperty("codec_time_base")
-	private Fraction codecTimeBase;
+	private String codecTimeBase;
 	@JsonProperty("codec_tag_string")
 	private String codecTagString;
 	@JsonProperty("codec_tag")
@@ -57,11 +56,11 @@ public class Stream {
 	@JsonProperty("nal_length_size")
 	private String nalLengthSize;
 	@JsonProperty("r_frame_rate")
-	private Fraction rFrameRate;
+	private String rFrameRate;
 	@JsonProperty("avg_frame_rate")
-	private Fraction avgFrameRate;
+	private String avgFrameRate;
 	@JsonProperty("time_base")
-	private Fraction timeBase;
+	private String timeBase;
 	@JsonProperty("start_pts")
 	private long startPts;
 	@JsonProperty("start_time")
