@@ -1,72 +1,112 @@
 package art.aelaort.ffprobe.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 import org.apache.commons.lang3.math.Fraction;
 
 import java.util.Map;
 
+@Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Stream {
+	public enum CodecType {
+		VIDEO,
+		AUDIO,
+		SUBTITLE,
+		DATA,
+		ATTACHMENT
+	}
 
-  public enum CodecType {
-    VIDEO,
-    AUDIO,
-    SUBTITLE,
-    DATA,
-    ATTACHMENT
-  }
+	@JsonProperty
+	private int index;
+	@JsonProperty("codec_name")
+	private String codecName;
+	@JsonProperty("codec_long_name")
+	private String codecLongName;
+	@JsonProperty
+	private String profile;
+	@JsonProperty("codec_type")
+	private CodecType type;
+	@JsonProperty("codec_time_base")
+	private Fraction codecTimeBase;
+	@JsonProperty("codec_tag_string")
+	private String codecTagString;
+	@JsonProperty("codec_tag")
+	private String codecTag;
+	@JsonProperty
+	private int width;
+	@JsonProperty
+	private int height;
+	@JsonProperty("has_b_frames")
+	private int hasBFrames;
+	@JsonProperty("sample_aspect_ratio")
+	private String sampleAspectRatio;
+	@JsonProperty("display_aspect_ratio")
+	private String displayAspectRatio;
+	@JsonProperty("pix_fmt")
+	private String pixFmt;
+	@JsonProperty
+	private int level;
+	@JsonProperty("chroma_location")
+	private String chromaLocation;
+	@JsonProperty
+	private int refs;
+	@JsonProperty("is_avc")
+	private String isAvc;
+	@JsonProperty("nal_length_size")
+	private String nalLengthSize;
+	@JsonProperty("r_frame_rate")
+	private Fraction rFrameRate;
+	@JsonProperty("avg_frame_rate")
+	private Fraction avgFrameRate;
+	@JsonProperty("time_base")
+	private Fraction timeBase;
+	@JsonProperty("start_pts")
+	private long startPts;
+	@JsonProperty("start_time")
+	private double startTime;
+	@JsonProperty("duration_ts")
+	private long durationTs;
+	@JsonProperty
+	private double duration;
+	@JsonProperty("bit_rate")
+	private long bitRate;
+	@JsonProperty("max_bit_rate")
+	private long maxBitRate;
+	@JsonProperty("bits_per_raw_sample")
+	private int bitsPerRawSample;
+	@JsonProperty("bits_per_sample")
+	private int bitsPerSample;
+	@JsonProperty("nb_frames")
+	private long nbFrames;
+	@JsonProperty("sample_fmt")
+	private String sampleFmt;
+	@JsonProperty("sample_rate")
+	private int sampleRate;
+	@JsonProperty
+	private int channels;
+	@JsonProperty("channel_layout")
+	private String channelLayout;
+	@JsonProperty
+	private Disposition disposition;
+	@JsonProperty
+	private Map<String, String> tags;
+	@JsonProperty("side_data_list")
+	private SideData[] sideDataList;
 
-  public int index;
-  public String codec_name;
-  public String codec_long_name;
-  public String profile;
-  public CodecType codec_type;
-  public Fraction codec_time_base;
+	public String getLanguage() {
+		return tags.get("language");
+	}
 
-  public String codec_tag_string;
-  public String codec_tag;
-
-  public int width, height;
-
-  public int has_b_frames;
-
-  public String sample_aspect_ratio; // TODO Change to a Ratio/Fraction object
-  public String display_aspect_ratio;
-
-  public String pix_fmt;
-  public int level;
-  public String chroma_location;
-  public int refs;
-  public String is_avc;
-  public String nal_length_size;
-  public Fraction r_frame_rate;
-  public Fraction avg_frame_rate;
-  public Fraction time_base;
-
-  public long start_pts;
-  public double start_time;
-
-  public long duration_ts;
-  public double duration;
-
-  public long bit_rate;
-  public long max_bit_rate;
-  public int bits_per_raw_sample;
-  public int bits_per_sample;
-
-  public long nb_frames;
-
-  public String sample_fmt;
-  public int sample_rate;
-  public int channels;
-  public String channel_layout;
-
-  public Disposition disposition;
-
-  public Map<String, String> tags;
-  public SideData[] side_data_list;
-
-  public static class SideData {
-    public String side_data_type;
-    public String displaymatrix;
-    public int rotation;
-  }
+	@Getter
+	@JsonIgnoreProperties(ignoreUnknown = true)
+	public static class SideData {
+		@JsonProperty("side_data_type")
+		private String sideDataType;
+		@JsonProperty
+		private String displaymatrix;
+		@JsonProperty
+		private int rotation;
+	}
 }

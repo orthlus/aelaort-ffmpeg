@@ -1,27 +1,36 @@
 package art.aelaort.ffprobe.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+
 import java.util.Map;
 
+@Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Format {
-  public String filename;
-  public int nb_streams;
-  public int nb_programs;
-
-  public String format_name;
-  public String format_long_name;
-  public double start_time;
-
-  /** Duration in seconds */
-  // TODO Change this to java.time.Duration
-  public double duration;
-
-  /** File size in bytes */
-  public long size;
-
-  /** Bitrate */
-  public long bit_rate;
-
-  public int probe_score;
-
-  public Map<String, String> tags;
+	@JsonProperty
+	private String filename;
+	@JsonProperty("nb_streams")
+	private int nbStreams;
+	@JsonProperty("nb_programs")
+	private int nbPrograms;
+	@JsonProperty("format_name")
+	private String formatName;
+	@JsonProperty("format_long_name")
+	private String formatLongName;
+	@JsonProperty("start_time")
+	private double startTime;
+	/* Duration in seconds */
+	@JsonProperty
+	private double duration;
+	/* File size in bytes */
+	@JsonProperty
+	private long size;
+	@JsonProperty("bit_rate")
+	private long bitRate;
+	@JsonProperty("probe_score")
+	private int probeScore;
+	@JsonProperty
+	private Map<String, String> tags;
 }

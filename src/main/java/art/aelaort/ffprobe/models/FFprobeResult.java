@@ -1,33 +1,25 @@
 package art.aelaort.ffprobe.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+
+import java.util.ArrayList;
 import java.util.List;
 
-/** TODO Make this immutable */
+@Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FFprobeResult {
-  public Error error;
-  public Format format;
-  public List<Stream> streams;
-  public List<Chapter> chapters;
+	@JsonProperty
+	private Error error;
+	@JsonProperty
+	private Format format;
+	@JsonProperty
+	private List<Stream> streams = new ArrayList<>();
+	@JsonProperty
+	private List<Chapter> chapters = new ArrayList<>();
 
-  public Error getError() {
-    return error;
-  }
-
-  public boolean hasError() {
-    return error != null;
-  }
-
-  public Format getFormat() {
-    return format;
-  }
-
-  public List<Stream> getStreams() {
-    if (streams == null) return List.of();
-    return streams;
-  }
-
-  public List<Chapter> getChapters() {
-    if (chapters == null) return List.of();
-    return chapters;
-  }
+	public boolean hasError() {
+		return error != null;
+	}
 }
