@@ -2,13 +2,18 @@ package art.aelaort.ffprobe;
 
 import art.aelaort.FFmpegPaths;
 import art.aelaort.SystemResponse;
+import art.aelaort.ffprobe.models.FFprobeResult;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
 
 public class FFprobe {
-	public static SystemResponse probe(String mediaPath) {
+	private static final ObjectMapper mapper = new ObjectMapper();
+
+	public static FFprobeResult probe(String mediaPath) {
 		List<String> command = List.of(
 				FFmpegPaths.FFPROBE_PATH,
 				"-v", "quiet",
@@ -19,7 +24,19 @@ public class FFprobe {
 				"-show_chapters",
 				mediaPath
 		);
-		return call(command);
+		return parse(call(command));
+	}
+
+	private static FFprobeResult parse(SystemResponse response) {
+		if (!response.stderr().isEmpty()) {
+			throw new FFprobeException(response);
+		}
+
+		try {
+			return mapper.readValue(response.stdout(), FFprobeResult.class);
+		} catch (JsonProcessingException e) {
+			throw new FFprobeException(response, true);
+		}
 	}
 
 	private static SystemResponse call(List<String> command) {
