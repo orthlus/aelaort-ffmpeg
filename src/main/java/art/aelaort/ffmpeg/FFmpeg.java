@@ -18,7 +18,7 @@ public class FFmpeg {
 	private final List<String> args;
 	private boolean printOnlyError;
 
-	public Process run() {
+	private List<String> commandList() {
 		List<String> finalArgs = new ArrayList<>(args.size() + 10);
 		finalArgs.add(FFmpegPaths.FFMPEG_PATH);
 
@@ -38,7 +38,15 @@ public class FFmpeg {
 			finalArgs.add(quotes(output));
 		}
 
-		return SystemCalls.callPrintable(finalArgs);
+		return finalArgs;
+	}
+
+	public String command() {
+		return String.join(" ", commandList());
+	}
+
+	public Process run() {
+		return SystemCalls.callPrintable(commandList());
 	}
 
 	private String quotes(String s) {
