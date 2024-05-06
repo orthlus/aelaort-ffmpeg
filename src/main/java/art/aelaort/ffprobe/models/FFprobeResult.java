@@ -19,6 +19,25 @@ public class FFprobeResult {
 	@JsonProperty
 	private List<Chapter> chapters = new ArrayList<>();
 
+	public List<Stream> getAudioStreams() {
+		return streams.stream()
+				.filter(s -> s.getType().equals(Stream.CodecType.audio))
+				.toList();
+	}
+
+	public List<Stream> getSubtitlesStreams() {
+		return streams.stream()
+				.filter(s -> s.getType().equals(Stream.CodecType.subtitle))
+				.toList();
+	}
+
+	public Stream getVideoStream() {
+		return streams.stream()
+				.filter(s -> s.getType().equals(Stream.CodecType.video))
+				.findFirst()
+				.orElseThrow();
+	}
+
 	public boolean hasError() {
 		return error != null;
 	}

@@ -98,6 +98,15 @@ public class Stream {
 		return tags.get("language");
 	}
 
+	public double getRFrameRate() {
+		if (rFrameRate.contains("/")) {
+			String[] split = rFrameRate.split("/");
+			return Double.parseDouble(split[0])/Double.parseDouble(split[1]);
+		} else {
+			return Double.parseDouble(rFrameRate);
+		}
+	}
+
 	@Getter
 	@JsonIgnoreProperties(ignoreUnknown = true)
 	public static class SideData {
