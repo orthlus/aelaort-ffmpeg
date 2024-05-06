@@ -1,4 +1,4 @@
-package art.aelaort.ffprobe;
+package art.aelaort.ffprobe.models;
 
 import java.util.List;
 

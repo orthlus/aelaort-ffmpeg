@@ -1,4 +1,4 @@
-package art.aelaort.ffprobe;
+package art.aelaort.ffprobe.models;
 
 import org.apache.commons.lang3.math.Fraction;
 

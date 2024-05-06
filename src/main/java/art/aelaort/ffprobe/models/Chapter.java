@@ -1,4 +1,4 @@
-package art.aelaort.ffprobe;
+package art.aelaort.ffprobe.models;
 
 public class Chapter {
   public int id;
