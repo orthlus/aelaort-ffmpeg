@@ -3,7 +3,6 @@ package art.aelaort;
 import com.google.common.collect.ImmutableList;
 import net.bramp.ffmpeg.FFprobe;
 import org.bytedeco.ffmpeg.ffmpeg;
-import org.bytedeco.ffmpeg.ffprobe;
 import org.bytedeco.javacpp.Loader;
 
 import java.io.IOException;
@@ -15,7 +14,7 @@ public class FFmpegFactory {
 
 	public static FFprobe ffprobe() {
 		try {
-			return new FFprobe(Loader.load(ffprobe.class));
+			return new FFprobe(FFmpegPaths.FFPROBE_PATH);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

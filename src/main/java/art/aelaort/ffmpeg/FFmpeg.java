@@ -1,5 +1,6 @@
 package art.aelaort.ffmpeg;
 
+import art.aelaort.FFmpegPaths;
 import lombok.Builder;
 import lombok.Singular;
 
@@ -7,8 +8,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import static art.aelaort.FFmpegFactory.ffmpegPath;
 
 @Builder
 public class FFmpeg {
@@ -22,7 +21,7 @@ public class FFmpeg {
 
 	public Process run() {
 		List<String> finalArgs = new ArrayList<>(args.size() + 10);
-		finalArgs.add(ffmpegPath());
+		finalArgs.add(FFmpegPaths.FFMPEG_PATH);
 
 		if (printOnlyError) {
 			finalArgs.add("-v");
