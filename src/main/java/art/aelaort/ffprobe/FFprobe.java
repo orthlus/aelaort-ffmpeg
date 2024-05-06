@@ -11,7 +11,7 @@ public class FFprobe {
 		List<String> command = List.of(
 				FFmpegPaths.FFPROBE_PATH,
 				"-v", "quiet",
-				"-print_format", "json",
+				"-output_format", "json",
 				"-show_error",
 				"-show_format",
 				"-show_streams",
