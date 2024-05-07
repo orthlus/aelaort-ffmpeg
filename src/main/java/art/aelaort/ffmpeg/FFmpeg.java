@@ -11,14 +11,18 @@ import java.util.List;
 
 @Builder
 public class FFmpeg {
+	private final List<String> args;
 	@Singular
 	private final List<String> inputs;
 	@Singular
 	private final List<String> outputs;
-	private final List<String> args;
 	private boolean printOnlyError;
 
 	public static class FFmpegBuilder {
+		public FFmpegBuilder map(String arg) {
+			return args("-map", arg);
+		}
+
 		public FFmpegBuilder args(String... args) {
 			if (this.args == null) {
 				this.args = new ArrayList<>();
