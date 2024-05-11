@@ -46,6 +46,7 @@ public class FFmpeg {
 		}
 
 		if (inputDuration != null) {
+			finalArgs.add("-t");
 			finalArgs.add(inputDuration);
 		}
 
@@ -57,6 +58,7 @@ public class FFmpeg {
 		finalArgs.addAll(args);
 
 		if (outputDuration != null) {
+			finalArgs.add("-t");
 			finalArgs.add(outputDuration);
 		}
 
