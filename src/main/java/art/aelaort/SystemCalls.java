@@ -37,7 +37,7 @@ public class SystemCalls {
 					.inheritIO()
 					.start();
 
-			try (BufferedReader b = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
+			/*try (BufferedReader b = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
 				String line;
 				while ((line = b.readLine()) != null) {
 					System.out.println(line);
@@ -49,7 +49,7 @@ public class SystemCalls {
 				while ((line = b.readLine()) != null) {
 					System.err.println(line);
 				}
-			}
+			}*/
 
 			return p;
 		} catch (Exception e) {
