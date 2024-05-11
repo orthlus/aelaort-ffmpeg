@@ -45,12 +45,20 @@ public class FFmpeg {
 			finalArgs.add("error");
 		}
 
+		if (inputDuration != null) {
+			finalArgs.add(inputDuration);
+		}
+
 		for (String input : inputs) {
 			finalArgs.add("-i");
 			finalArgs.add(quotes(input));
 		}
 
 		finalArgs.addAll(args);
+
+		if (outputDuration != null) {
+			finalArgs.add(outputDuration);
+		}
 
 		for (String output : outputs) {
 			finalArgs.add(quotes(output));
