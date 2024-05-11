@@ -17,6 +17,8 @@ public class FFmpeg {
 	@Singular
 	private final List<String> outputs;
 	private boolean printOnlyError;
+	private String inputDuration;
+	private String outputDuration;
 
 	public static class FFmpegBuilder {
 		public FFmpegBuilder map(String arg) {
