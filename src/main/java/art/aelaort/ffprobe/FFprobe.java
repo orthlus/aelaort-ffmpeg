@@ -24,7 +24,7 @@ public class FFprobe {
 				"-show_format",
 				"-show_streams",
 				"-show_chapters",
-				mediaPath
+				"\"" + mediaPath + "\""
 		);
 		return parse(call(command));
 	}
