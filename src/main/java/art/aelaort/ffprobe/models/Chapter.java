@@ -8,7 +8,7 @@ import lombok.Getter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Chapter {
 	@JsonProperty
-	private int id;
+	private String id;
 	@JsonProperty("time_base")
 	private String timeBase;
 	@JsonProperty
