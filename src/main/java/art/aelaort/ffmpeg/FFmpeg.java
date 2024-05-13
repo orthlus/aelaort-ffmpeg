@@ -19,6 +19,8 @@ public class FFmpeg {
 	private boolean printOnlyError;
 	private String inputDuration;
 	private String outputDuration;
+	@Singular
+	private final List<String> preInputArgs;
 
 	public static class FFmpegBuilder {
 		public FFmpegBuilder map(String arg) {
@@ -44,6 +46,8 @@ public class FFmpeg {
 			finalArgs.add("-v");
 			finalArgs.add("error");
 		}
+
+		finalArgs.addAll(preInputArgs);
 
 		if (inputDuration != null) {
 			finalArgs.add("-t");
